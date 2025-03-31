@@ -1,5 +1,6 @@
 import jwt from "jsonwebtoken";
 import User from "../models/User.js";
+import bcrypt from "bcrypt";
 
 import { SECRET } from "../config.js";
 
@@ -10,14 +11,12 @@ export const signUp = async (body) => {
   try {
     let error = fieldsValidation(body);
     if (error) return { error: error, code: 422 };
-    const { username, email, sector, country, password } = body;
+    const { username, email, password } = body;
     const roles = body.roles ?? ["user"];
     const newUser = new User({
       username,
       email,
-      sector, 
-      country,
-      password,
+      password: bcrypt.hashSync(password, 8),
     });
 
     if (roles) {
@@ -37,7 +36,7 @@ export const signUp = async (body) => {
     const userFound = await User.findOne({ email: email }).populate("roles");
 
     const data = {
-      _id: userFound?._id, 
+      _id: userFound?._id,
       roles: userFound?.roles?.[0]?.name,
       username: userFound?.username,
       email: userFound?.email,
@@ -80,22 +79,25 @@ export const signIn = async (body) => {
         code: 422,
       };
 
-    const matchPassword = await User.comparePassword(
+    const passwordIsValid = bcrypt.compareSync(
       body.password,
       userFound.password
     );
-
-    if (!matchPassword) return { error: "Contraseña incorrecta", code: 401 };
+    if (!passwordIsValid)
+      return res.status(400).send({
+        status: "Error",
+        message: "Password Invalid",
+      });
 
     const token = jwt.sign({ id: userFound._id }, SECRET, {
       expiresIn: 86400,
     });
 
     const data = {
-      _id: userFound?._id, 
+      _id: userFound?._id,
       roles: userFound?.roles?.[0]?.name,
       username: userFound?.username,
-      email: userFound?.email
+      email: userFound?.email,
     };
 
     return { token, data };
