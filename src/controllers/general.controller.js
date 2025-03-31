@@ -33,12 +33,12 @@ export const signinHandler = async (req, res) => {
 // EHR
 export const createEHRMapping = async (req, res) => {
   try {
-    const { question, endpoint, ehrSystem } = req.body;
+    const { mapping } = req.body;
 
-    const mapping = new EHRMapping({ question, endpoint, ehrSystem });
-    await mapping.save();
+    const mappingCreated = new EHRMapping({ mapping });
+    await mappingCreated.save();
 
-    return res.status(201).json(mapping);
+    return res.status(201).json(mappingCreated);
   } catch (error) {
     console.error("Error al crear EHRMapping:", error);
     return res.status(500).json({ message: "Error en el servidor" });
@@ -70,19 +70,19 @@ export const getEHRMappingById = async (req, res) => {
 
 export const updateEHRMapping = async (req, res) => {
   try {
-    const { question, endpoint, ehrSystem } = req.body;
+    const { mapping } = req.body;
 
-    const mapping = await EHRMapping.findByIdAndUpdate(
+    const mappingUpdated = await EHRMapping.findByIdAndUpdate(
       req.params.id,
-      { question, endpoint, ehrSystem },
+      { mapping },
       { new: true }
     );
 
-    if (!mapping) {
+    if (!mappingUpdated) {
       return res.status(404).json({ message: "EHRMapping no encontrado" });
     }
 
-    return res.status(200).json(mapping);
+    return res.status(200).json(mappingUpdated);
   } catch (error) {
     console.error("Error al actualizar EHRMapping:", error);
     return res.status(500).json({ message: "Error en el servidor" });

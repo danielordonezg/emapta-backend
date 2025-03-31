@@ -2,9 +2,10 @@ import mongoose, { Schema } from "mongoose";
 
 const EHRMappingSchema = new Schema(
   {
-    question: { type: String, required: true },
-    endpoint: { type: String, required: true },
-    ehrSystem: { type: String, required: true },
+    mapping: {
+      type: Object,
+      required: true,
+    },
   },
   { timestamps: true }
 );
