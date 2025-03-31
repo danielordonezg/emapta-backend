@@ -33,9 +33,9 @@ export const signinHandler = async (req, res) => {
 // EHR
 export const createEHRMapping = async (req, res) => {
   try {
-    const { mapping } = req.body;
+    const { mapping, ehrName } = req.body;
 
-    const mappingCreated = new EHRMapping({ mapping });
+    const mappingCreated = new EHRMapping({ mapping, ehrName });
     await mappingCreated.save();
 
     return res.status(201).json(mappingCreated);
@@ -70,11 +70,11 @@ export const getEHRMappingById = async (req, res) => {
 
 export const updateEHRMapping = async (req, res) => {
   try {
-    const { mapping } = req.body;
+    const { mapping, ehrName } = req.body;
 
     const mappingUpdated = await EHRMapping.findByIdAndUpdate(
       req.params.id,
-      { mapping },
+      { mapping, ehrName },
       { new: true }
     );
 
