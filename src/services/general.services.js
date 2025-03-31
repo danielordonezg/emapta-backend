@@ -1,6 +1,7 @@
 import jwt from "jsonwebtoken";
 import User from "../models/User.js";
 import bcrypt from "bcrypt";
+import validator from "email-validator";
 
 import { SECRET } from "../config.js";
 import Role from "../models/Role.js";
