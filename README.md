@@ -1,23 +1,23 @@
-Emapta Test Project – Backend API
+# Emapta Test Project – Backend API
 This project is the backend for a clinical data mapping platform (EHR), developed as part of a technical assessment for Emapta.
 
-Key Technologies
+# Key Technologies
 
 Node.js
 Express.js
 MongoDB
 Mongoose
 JWT (for authentication)
-TypeScript (optional)
+TypeScript
 
-Installation & Running
+# Installation & Running
 
 # Install dependencies
 npm install
 # Run in development mode
 npm run dev
 
-Author
+# Author
 
 Name: Daniel Gómez
 Email: dgomez.new@gmail.com
