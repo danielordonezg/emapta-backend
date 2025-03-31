@@ -1,14 +1,23 @@
-# Coally Project
+Emapta Test Project – Backend API
+This project is the backend for a clinical data mapping platform (EHR), developed as part of a technical assessment for Emapta.
 
-# Environment variables
+Key Technologies
 
-- PORT, the default port is 3000
-- MONGODB_URI, the default MONGODB URI
-- ADMIN_EMAIL=daniel@localhost.local
-- ADMIN_USERNAME=dgomez
+Node.js
+Express.js
+MongoDB
+Mongoose
+JWT (for authentication)
+TypeScript (optional)
 
-# Recommended services
+Installation & Running
 
-* Express
-* Mongodb Atlas. Put a username, password and db name
-* AWS
+# Install dependencies
+npm install
+# Run in development mode
+npm run dev
+
+Author
+
+Name: Daniel Gómez
+Email: dgomez.new@gmail.com
